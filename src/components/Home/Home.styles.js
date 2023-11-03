@@ -13,9 +13,13 @@ align-content: center;
 `
 export const PaginationNumSpan=styled.span`
 display: inline-block;
-margin: 10px;
+margin: 5px;
+padding: 4px;
 width: 1rem;
 cursor: pointer;
+display: flex;
+justify-content: center;
+align-items: center;
 ` 
 
 export const SpinnerWrapper=styled.div`

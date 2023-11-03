@@ -20,10 +20,6 @@ export const CardDiv = styled.div`
     margin: 2%;
     height: 27rem;
   }
-  /* @media only screen and (max-width: 1000px) {
-    width: 30%;
-    margin: 1.25%;
-  } */
 
   &:hover {
     transform: scale(1.05);
@@ -46,16 +42,10 @@ export const CardContentDiv = styled.div`
 
 export const CategoryPara = styled.p`
   font-size: 0.9rem;
-  /* @media only screen and (max-width: 700px) {
-    font-size: 0.8rem;
-  } */
 `;
 
 export const CategorySpan = styled.span`
   font-weight: 500;
-  /* @media only screen and (max-width: 700px) {
-    font-size: 0.9rem;
-  } */
 `;
 
 export const TitlePara = styled.p`

@@ -20,15 +20,17 @@ function Home() {
   const [filter, setFilter] = useState("none");
   const [dataLength, setDataLength] = useState([]);
   const [activePage, setActivePage] = useState(0);
+  const [displayData,setDisplayData]=useState([])
 
   useEffect(() => {
     if (storeData.unsortedData.length !== 0) {
       setDataLength(
         Array.from(
-          { length: Math.floor(storeData.unsortedData.length / 16) + 1 },
+          { length: Math.floor(storeData.unsortedData.length / 16) +1 },
           (_, index) => index
         )
-      );
+      )
+      
     }
   }, [storeData]);
 
@@ -78,11 +80,24 @@ function Home() {
       }
     }
     getData();
+    setActivePage(0)
   }, [filter]);
 
   useEffect(() => {
     setFilter(storeFilter.filter);
   }, [storeFilter]);
+
+  useEffect(()=>{
+    if(activePage===Math.floor(data.length/16)){
+      console.log('true');
+      setDisplayData(data.slice(Math.floor(data.length/16)*16,data.length-1))
+    }
+    else{
+      console.log('else');
+      setDisplayData(data.slice(activePage*16,((activePage+1)*16)-1))
+    }
+  },[activePage,data])
+
 
   const handlePagination = (e) => {
     setActivePage(parseInt(e.target.getAttribute("name")), 10);
@@ -100,7 +115,7 @@ function Home() {
             {dataLength.map((item) => {
               return (
                 <PaginationNumSpan
-                  style={{ backgroundColor: item === activePage && "#000" }}
+                  style={{ backgroundColor: item === activePage && "#ca85dd" }}
                   onClick={handlePagination}
                   key={item}
                   name={item}
@@ -111,7 +126,7 @@ function Home() {
             })}
           </PaginationDiv>
 
-          {data.map((item) => (
+          {displayData.map((item) => (
             <ItemCard
               key={item.id}
               title={item.title}
