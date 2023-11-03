@@ -32,8 +32,10 @@ export const CardDiv = styled.div`
 `;
 
 export const ItemImg = styled.img`
+margin: 5px 0 0 0;
   width: 100%;
   object-fit: contain;
+  height: 60%;
 `;
 
 export const CardContentDiv = styled.div`
