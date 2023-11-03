@@ -7,10 +7,16 @@ import {
   setunsortedData,
   setPriceSortedData,
 } from "../../store/slice/DataSlice";
-import { HomeWrapper, PaginationDiv, PaginationNumSpan, SpinnerWrapper } from "./Home.styles";
+import {
+  HomeWrapper,
+  PaginationDiv,
+  PaginationDivWrapper,
+  PaginationNumSpan,
+  SpinnerWrapper,
+} from "./Home.styles";
 import Header from "../Header/Header";
 import { ItemCard } from "../ItemCard/ItemCard";
-import Spinner from "../Spinner/Spinner"
+import Spinner from "../Spinner/Spinner";
 
 function Home() {
   const storeFilter = useSelector((store) => store.filter);
@@ -20,17 +26,16 @@ function Home() {
   const [filter, setFilter] = useState("none");
   const [dataLength, setDataLength] = useState([]);
   const [activePage, setActivePage] = useState(0);
-  const [displayData,setDisplayData]=useState([])
+  const [displayData, setDisplayData] = useState([]);
 
   useEffect(() => {
     if (storeData.unsortedData.length !== 0) {
       setDataLength(
         Array.from(
-          { length: Math.floor(storeData.unsortedData.length / 16) +1 },
+          { length: Math.floor(storeData.unsortedData.length / 16) + 1 },
           (_, index) => index
         )
-      )
-      
+      );
     }
   }, [storeData]);
 
@@ -80,24 +85,24 @@ function Home() {
       }
     }
     getData();
-    setActivePage(0)
+    setActivePage(0);
   }, [filter]);
 
   useEffect(() => {
     setFilter(storeFilter.filter);
   }, [storeFilter]);
 
-  useEffect(()=>{
-    if(activePage===Math.floor(data.length/16)){
-      console.log('true');
-      setDisplayData(data.slice(Math.floor(data.length/16)*16,data.length-1))
+  useEffect(() => {
+    if (activePage === Math.floor(data.length / 16)) {
+      console.log("true");
+      setDisplayData(
+        data.slice(Math.floor(data.length / 16) * 16, data.length - 1)
+      );
+    } else {
+      console.log("else");
+      setDisplayData(data.slice(activePage * 16, (activePage + 1) * 16 - 1));
     }
-    else{
-      console.log('else');
-      setDisplayData(data.slice(activePage*16,((activePage+1)*16)-1))
-    }
-  },[activePage,data])
-
+  }, [activePage, data]);
 
   const handlePagination = (e) => {
     setActivePage(parseInt(e.target.getAttribute("name")), 10);
@@ -106,25 +111,31 @@ function Home() {
   return (
     <>
       {storeData.unsortedData.length === 0 ? (
-        <SpinnerWrapper><Spinner/></SpinnerWrapper>
+        <SpinnerWrapper>
+          <Spinner />
+        </SpinnerWrapper>
       ) : (
         <HomeWrapper>
           <Header />
 
-          <PaginationDiv>
-            {dataLength.map((item) => {
-              return (
-                <PaginationNumSpan
-                  style={{ backgroundColor: item === activePage && "#ca85dd" }}
-                  onClick={handlePagination}
-                  key={item}
-                  name={item}
-                >
-                  {item + 1}
-                </PaginationNumSpan>
-              );
-            })}
-          </PaginationDiv>
+          <PaginationDivWrapper>
+            <PaginationDiv>
+              {dataLength.map((item) => {
+                return (
+                  <PaginationNumSpan
+                    style={{
+                      backgroundColor: item === activePage && "#ca85dd",
+                    }}
+                    onClick={handlePagination}
+                    key={item}
+                    name={item}
+                  >
+                    {item + 1}
+                  </PaginationNumSpan>
+                );
+              })}
+            </PaginationDiv>
+          </PaginationDivWrapper>
 
           {displayData.map((item) => (
             <ItemCard
