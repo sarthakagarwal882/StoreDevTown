@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
-// import { CardWrapper, Para, Card } from "./Home.styles";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -8,15 +7,30 @@ import {
   setunsortedData,
   setPriceSortedData,
 } from "../../store/slice/DataSlice";
-import { HomeWrapper } from "./Home.styles";
+import { HomeWrapper, PaginationDiv, PaginationNumSpan, SpinnerWrapper } from "./Home.styles";
 import Header from "../Header/Header";
 import { ItemCard } from "../ItemCard/ItemCard";
+import Spinner from "../Spinner/Spinner"
+
 function Home() {
   const storeFilter = useSelector((store) => store.filter);
   const storeData = useSelector((store) => store.posts);
   const dispatch = useDispatch();
   const [data, setData] = useState([]);
   const [filter, setFilter] = useState("none");
+  const [dataLength, setDataLength] = useState([]);
+  const [activePage, setActivePage] = useState(0);
+
+  useEffect(() => {
+    if (storeData.unsortedData.length !== 0) {
+      setDataLength(
+        Array.from(
+          { length: Math.floor(storeData.unsortedData.length / 16) + 1 },
+          (_, index) => index
+        )
+      );
+    }
+  }, [storeData]);
 
   useEffect(() => {
     async function getData() {
@@ -68,22 +82,48 @@ function Home() {
 
   useEffect(() => {
     setFilter(storeFilter.filter);
-  }, [storeFilter, storeData]);
+  }, [storeFilter]);
+
+  const handlePagination = (e) => {
+    setActivePage(parseInt(e.target.getAttribute("name")), 10);
+  };
 
   return (
-    <HomeWrapper>
-      <Header />
-      {data.map((item) => (
-        <ItemCard
-          key={item.id}
-          title={item.title}
-          price={item.price}
-          images={item.images}
-          description={item.description}
-          category={item.category}
-        />
-      ))}
-    </HomeWrapper>
+    <>
+      {storeData.unsortedData.length === 0 ? (
+        <SpinnerWrapper><Spinner/></SpinnerWrapper>
+      ) : (
+        <HomeWrapper>
+          <Header />
+
+          <PaginationDiv>
+            {dataLength.map((item) => {
+              return (
+                <PaginationNumSpan
+                  style={{ backgroundColor: item === activePage && "#000" }}
+                  onClick={handlePagination}
+                  key={item}
+                  name={item}
+                >
+                  {item + 1}
+                </PaginationNumSpan>
+              );
+            })}
+          </PaginationDiv>
+
+          {data.map((item) => (
+            <ItemCard
+              key={item.id}
+              title={item.title}
+              price={item.price}
+              images={item.images}
+              description={item.description}
+              category={item.category}
+            />
+          ))}
+        </HomeWrapper>
+      )}
+    </>
   );
 }
 
