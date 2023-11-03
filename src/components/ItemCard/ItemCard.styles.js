@@ -16,9 +16,9 @@ export const CardDiv = styled.div`
     margin: 1.25%;
   }
   @media only screen and (max-width: 700px) {
-    width: 45%;
-    margin: 2.5%;
-    height: 23rem;
+    width: 46%;
+    margin: 2%;
+    height: 27rem;
   }
   /* @media only screen and (max-width: 1000px) {
     width: 30%;
@@ -34,7 +34,7 @@ export const CardDiv = styled.div`
 export const ItemImg = styled.img`
 margin: 5px 0 0 0;
   width: 100%;
-  object-fit: contain;
+  object-fit: cover;
   height: 60%;
 `;
 
