@@ -18,7 +18,7 @@ export const CardDiv = styled.div`
   @media only screen and (max-width: 700px) {
     width: 45%;
     margin: 2.5%;
-    height: 20rem;
+    height: 23rem;
   }
   /* @media only screen and (max-width: 1000px) {
     width: 30%;
