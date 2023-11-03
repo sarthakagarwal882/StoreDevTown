@@ -5,13 +5,6 @@ export const HomeWrapper = styled.div`
   margin: auto;
 `;
 
-// export const PaginationDivWrapper = styled.div`
-//   width: 30%;
-//   display: flex;
-//   justify-content: center;
-//   flex-direction: row;
-//   margin: auto;
-// `;
 
 export const PaginationDiv = styled.div`
   width: 30%;
