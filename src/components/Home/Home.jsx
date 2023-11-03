@@ -10,7 +10,7 @@ import {
 import {
   HomeWrapper,
   PaginationDiv,
-  PaginationDivWrapper,
+  // PaginationDivWrapper,
   PaginationNumSpan,
   SpinnerWrapper,
 } from "./Home.styles";
@@ -118,7 +118,7 @@ function Home() {
         <HomeWrapper>
           <Header />
 
-          <PaginationDivWrapper>
+          {/* <PaginationDivWrapper> */}
             <PaginationDiv>
               {dataLength.map((item) => {
                 return (
@@ -135,7 +135,7 @@ function Home() {
                 );
               })}
             </PaginationDiv>
-          </PaginationDivWrapper>
+          {/* </PaginationDivWrapper> */}
 
           {displayData.map((item) => (
             <ItemCard

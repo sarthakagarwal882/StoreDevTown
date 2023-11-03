@@ -5,28 +5,26 @@ export const HomeWrapper = styled.div`
   margin: auto;
 `;
 
-export const PaginationDivWrapper = styled.div`
-  position: relative;
-  width: 30%;
-  display: flex;
-  justify-content: center;
-  flex-direction: row;
-  margin: auto;
-  @media only screen and(max-width: 700px) {
-    width: 60%;
-  }
-`;
+// export const PaginationDivWrapper = styled.div`
+//   width: 30%;
+//   display: flex;
+//   justify-content: center;
+//   flex-direction: row;
+//   margin: auto;
+// `;
+
 export const PaginationDiv = styled.div`
-  width: 100%;
+  width: 30%;
   margin: auto;
   display: flex;
   justify-content: left;
   align-content: center;
   overflow: auto;
-  ::-webkit-scrollbar {
-    display: none;
+  @media only screen and (max-width: 700px) {
+    width: 80%;
   }
 `;
+
 export const PaginationNumSpan = styled.span`
   display: inline-block;
   font-size: 0.9rem;
